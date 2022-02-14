@@ -17,4 +17,5 @@ samples, guidance on mobile development, and a full API reference.
 
 ## 1.如何更新 widgets？
 ## 2.动画
-## 2.传参
+## 3.传参
+## 4.路由

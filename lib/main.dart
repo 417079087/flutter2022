@@ -3,8 +3,12 @@ import 'SignatureApp.dart';
 import 'ui/CustomButton.dart';
 
 void main() {
-  runApp(const MyApp());
-  // runApp(MaterialApp(home:SignatureApp()));
+  // runApp(const MyApp());
+    runApp(const MyApp(),
+  );
+  // runApp(MaterialApp(
+  //     home:SignatureApp())
+  // );
 
 }
 
@@ -29,6 +33,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        routes: <String, WidgetBuilder> {
+          '/a': (BuildContext context) => MyHomePage(title: 'page A'),
+          '/b': (BuildContext context) => Signature(),
+        }
     );
   }
 }
@@ -83,6 +91,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _counter++;
       _toggle();
       controller.forward();
+
+      if(toggle) {
+        Navigator.of(context).pushNamed("/a");
+      } else {
+        Navigator.of(context).pushNamed("/b");
+      }
     });
   }
 
