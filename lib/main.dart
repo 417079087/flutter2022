@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'SignatureApp.dart';
+import 'ui/CustomButton.dart';
 
 void main() {
   runApp(const MyApp());
+  // runApp(MaterialApp(home:SignatureApp()));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -142,6 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               onPressed: () {},
               child: Text('Hello'),
             ),
+            CustomButton("传参"),
             _getToggleChild(),
         FadeTransition(
           opacity: curve,
