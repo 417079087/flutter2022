@@ -3,12 +3,14 @@ import 'SignatureApp.dart';
 import 'ui/CustomButton.dart';
 import 'ui/ShareApp.dart';
 import 'ui/HttpDataApp.dart';
+import 'ui/HttpDataAppIsolate.dart';
 
 void main() {
   // runApp(const MyApp());
   //   runApp(const MyApp(),
   //   runApp(ShareApp()
-    runApp(HttpDataApp()
+  //   runApp(HttpDataApp()
+    runApp(HttpDataAppIsolate()
   );
   // runApp(MaterialApp(
   //     home:SignatureApp())

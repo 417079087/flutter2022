@@ -36,13 +36,32 @@ class _HttpDataPageState extends State<HttpDataPage>{
       appBar: AppBar(
         title: Text('网络数据异步获取'),
       ),
-      body: ListView.builder(
-          itemCount: widgets.length,
-          itemBuilder: (BuildContext context, int position) {
-        return getRow(position);
-      }),
+      body: getBody()
     );
   }
+
+  Widget getBody(){
+    bool showLoadingDialog = widgets.isEmpty;
+    if(showLoadingDialog){
+      return  getProgressDialog();
+    } else {
+      return getListView();
+    }
+  }
+
+  Widget getProgressDialog(){
+    return Center(child: CircularProgressIndicator());
+  }
+
+  Widget getListView(){
+    return ListView.builder(
+        itemCount: widgets.length,
+        itemBuilder: (BuildContext context, int position) {
+          return getRow(position);
+        });
+  }
+
+
 
     Widget getRow(int i){
       return Padding(padding: EdgeInsets.all(10.0),
