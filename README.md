@@ -40,3 +40,19 @@ Dart 有一个单线程执行的模型，同时也支持 Isolate （在另一个
 里的主 Looper— 也即绑定到主线程上的 Looper。
 在 Flutter 中，可以使用 Dart 语言提供的异步工具，例如 async/await 来执行异步任务。如果你使用过 C# 或者 Javascript 中的 async/await 范式，或者 Kotlin 中的协程，你应该对它比较熟悉。
 ```
+### 8.资源文件
+
+|Android 密度修饰符 |Flutter 像素比例
+|----             |----
+|ldpi	          |0.75x
+|mdpi	          |1.0x
+|hdpi	          |1.5x
+|xhdpi	          |2.0x
+|xxhdpi	          |3.0x
+|xxxhdpi	      |4.0x
+
+### 9.暂不支持像安卓一样的语音国际化，但有开源库
+Flutter 在 Android 上提供无障碍的基本支持，但是这个功能当下仍在开发。
+我们鼓励 Flutter 开发者使用 intl 包 进行国际化和本地化。
+
+
