@@ -15,7 +15,28 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## 1.如何更新 widgets？
-## 2.动画
-## 3.传参
-## 4.路由
+### 1.如何更新 widgets？
+### 2.动画
+### 3.传参
+### 4.路由
+### 5.MethodChannel 进行应用间分享
+### 6.startActivityForResult() 的对应方法是什么？
+```code
+Navigator 类负责 Flutter 的导航，并用来接收被压栈的 route 的返回值。这是通过在 push() 后返回的 Future 上 await 来实现的。
+
+例如，要打开一个让用户选择位置的 route，你可以这样做：
+
+content_copy
+Map coordinates = await Navigator.of(context).pushNamed('/location');
+然后，在你的位置 route 内，一旦用户选择了位置，你就可以弹栈 (pop) 并返回结果：
+
+content_copy
+Navigator.of(context).pop({"lat":43.821757,"long":-79.226392});
+```
+### 7.异步 网络请求
+```text
+Dart 有一个单线程执行的模型，同时也支持 Isolate （在另一个线程运行 Dart 代码的方法），它是一个事件循环和异步编程方式。
+除非你创建一个 Isolate，否则你的 Dart 代码会运行在主 UI 线程，并被一个事件循环所驱动。Flutter 的事件循环对应于 Android 
+里的主 Looper— 也即绑定到主线程上的 Looper。
+在 Flutter 中，可以使用 Dart 语言提供的异步工具，例如 async/await 来执行异步任务。如果你使用过 C# 或者 Javascript 中的 async/await 范式，或者 Kotlin 中的协程，你应该对它比较熟悉。
+```
