@@ -52,7 +52,30 @@ Dart 有一个单线程执行的模型，同时也支持 Isolate （在另一个
 |xxxhdpi	      |4.0x
 
 ### 9.暂不支持像安卓一样的语音国际化，但有开源库
+Flutter 当下并没有一个特定的管理字符串的资源管理系统。目前来讲，最好的办法是将字符串作为静态域存放在类中，并通过类访问它们.
 Flutter 在 Android 上提供无障碍的基本支持，但是这个功能当下仍在开发。
 我们鼓励 Flutter 开发者使用 intl 包 进行国际化和本地化。
+
+### 10.Gradle 文件的对应物是什么？我该如何添加依赖？
+在 Android 中，你在 Gradle 构建脚本中添加依赖。Flutter 使用 Dart 自己的构建系统以及 Pub 包管理器。构建工具会将原生 Android 和 iOS 壳应用的构建代理给对应的构建系统。
+虽然在你的 Flutter 项目的 android 文件夹下有 Gradle 文件，但是它们只用于给对应平台的集成添加原生依赖。一般来说，在 pubspec.yaml 文件中定义在 Flutter 里使用的外部依赖。
+
+### 11. Flutter中类似于Activity的生命周期的监听，对WWidget的监听，绑定WidgetsBinding并监听didChangeAppLifecycleState()方法
+可以被观察的生命周期事件有（AppLifecycleState）：
+inactive — 应用处于非活跃状态并且不接收用户输入。
+detached — 应用依然保留 flutter engine，但是它会脱离全部宿主 view。
+paused — 应用当前对用户不可见，无法响应用户输入，并运行在后台。这个事件对应于 Android 中的 onPause()；
+resumed — 应用对用户可见并且可以响应用户的输入。这个事件对应于 Android 中的 onPostResume()；
+suspending — 应用暂时被挂起。这个事件对应于 Android 中的 onStop； iOS 上由于没有对应的事件，因此不会触发此事件。
+
+### 12. LinearLayout 对应Row 和 Column，RelativeLayout 对应组合使用 Column、Row 和 Stack Widget 实现 RelativeLayout 的效果。ScrollView 对应 Flutter的ListView
+Flutter 中 ListView widget 既是一个 ScrollView，也是一个 Android 中的 ListView。
+
+### 13.Flutter如何处理屏幕旋转？
+FlutterView 会处理配置的变化，前提条件是在 AndroidManifest.xml 文件中声明了：
+
+````java
+android:configChanges="orientation|screenSize"
+```
 
 

@@ -42,12 +42,19 @@ class HttpDataPage extends StatefulWidget{
 
 }
 
-class _HttpDataPageState extends State<HttpDataPage>{
+class _HttpDataPageState extends State<HttpDataPage> with WidgetsBindingObserver{
   List widgets = [];
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     loadData();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
   }
 
   @override
