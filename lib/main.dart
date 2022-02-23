@@ -4,13 +4,15 @@ import 'ui/CustomButton.dart';
 import 'ui/ShareApp.dart';
 import 'ui/HttpDataApp.dart';
 import 'ui/HttpDataAppIsolate.dart';
+import 'ui/RotationApp.dart';
 
 void main() {
   // runApp(const MyApp());
   //   runApp(const MyApp(),
+    runApp( RotationApp(),
   //   runApp(ShareApp()
   //   runApp(HttpDataApp()
-    runApp(HttpDataAppIsolate()
+  //   runApp(HttpDataAppIsolate()
   );
   // runApp(MaterialApp(
   //     home:SignatureApp())
@@ -64,8 +66,9 @@ class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+late AnimationController controller;
+late CurvedAnimation curve;
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin  {
   int _counter = 0;
   bool toggle = true;
   void _toggle(){
@@ -74,16 +77,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     });
   }
 
-  late AnimationController controller;
-  late CurvedAnimation curve;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = AnimationController(
+        vsync: this,
         duration: const Duration(microseconds: 2000),
-        vsync: this);
+        );
     curve = CurvedAnimation(parent: controller, curve: Curves.easeIn);
   }
 
@@ -96,13 +99,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       // called again, and so nothing would appear to happen.
       _counter++;
       _toggle();
-      controller.forward();
+      // controller.forward();
 
-      if(toggle) {
-        Navigator.of(context).pushNamed("/a");
-      } else {
-        Navigator.of(context).pushNamed("/b");
-      }
+      // if(toggle) {
+      //   Navigator.of(context).pushNamed("/a");
+      // } else {
+      //   Navigator.of(context).pushNamed("/b");
+      // }
     });
   }
 
@@ -116,36 +119,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -163,17 +143,34 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.only(left: 20.0, right: 30.0),
               ),
-              onPressed: () {},
+              onPressed: () {
+
+              },
               child: Text('Hello'),
             ),
             CustomButton("传参"),
             _getToggleChild(),
-        FadeTransition(
-          opacity: curve,
-          child: FlutterLogo(
-            size: 100.0,
-          )),
+            GestureDetector(
+            onDoubleTap:(){
+              print('tap');
+              setState(() {
+                if(controller.isCompleted){
+                  controller.reverse();
+                } else {
+                  controller.forward();
+                }
+              });
+
+            },
+            child: RotationTransition(
+              turns: curve,
+              child:  FlutterLogo(
+                   size: 100.0,
+               )
+          ),
+        )
           ],
+
         ),
 
       ),

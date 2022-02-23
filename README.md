@@ -142,9 +142,9 @@ class SampleApp extends StatelessWidget {
 
 >Horizontal drag
 
-*onHorizontalDragStart - 指针已经触摸屏幕并可能开始水平移动。
-*onHorizontalDragUpdate - 触摸屏幕的指针在水平方向移动了更多的距离。
-*onHorizontalDragEnd - 之前和屏幕接触并水平移动的指针不再继续和屏幕接触，并且在和屏幕停止接触的时候以一定的速度移动。
+* onHorizontalDragStart - 指针已经触摸屏幕并可能开始水平移动。
+* onHorizontalDragUpdate - 触摸屏幕的指针在水平方向移动了更多的距离。
+* onHorizontalDragEnd - 之前和屏幕接触并水平移动的指针不再继续和屏幕接触，并且在和屏幕停止接触的时候以一定的速度移动。
 
 
 
