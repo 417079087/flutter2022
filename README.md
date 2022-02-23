@@ -52,16 +52,16 @@ Dart 有一个单线程执行的模型，同时也支持 Isolate （在另一个
 |xxxhdpi	      |4.0x
 
 ### 9.暂不支持像安卓一样的语音国际化，但有开源库
-Flutter 当下并没有一个特定的管理字符串的资源管理系统。目前来讲，最好的办法是将字符串作为静态域存放在类中，并通过类访问它们.
+>Flutter 当下并没有一个特定的管理字符串的资源管理系统。目前来讲，最好的办法是将字符串作为静态域存放在类中，并通过类访问它们.
 Flutter 在 Android 上提供无障碍的基本支持，但是这个功能当下仍在开发。
 我们鼓励 Flutter 开发者使用 intl 包 进行国际化和本地化。
 
 ### 10.Gradle 文件的对应物是什么？我该如何添加依赖？
-在 Android 中，你在 Gradle 构建脚本中添加依赖。Flutter 使用 Dart 自己的构建系统以及 Pub 包管理器。构建工具会将原生 Android 和 iOS 壳应用的构建代理给对应的构建系统。
+>在 Android 中，你在 Gradle 构建脚本中添加依赖。Flutter 使用 Dart 自己的构建系统以及 Pub 包管理器。构建工具会将原生 Android 和 iOS 壳应用的构建代理给对应的构建系统。
 虽然在你的 Flutter 项目的 android 文件夹下有 Gradle 文件，但是它们只用于给对应平台的集成添加原生依赖。一般来说，在 pubspec.yaml 文件中定义在 Flutter 里使用的外部依赖。
 
 ### 11. Flutter中类似于Activity的生命周期的监听，对WWidget的监听，绑定WidgetsBinding并监听didChangeAppLifecycleState()方法
-可以被观察的生命周期事件有（AppLifecycleState）：
+>可以被观察的生命周期事件有（AppLifecycleState）：
 inactive — 应用处于非活跃状态并且不接收用户输入。
 detached — 应用依然保留 flutter engine，但是它会脱离全部宿主 view。
 paused — 应用当前对用户不可见，无法响应用户输入，并运行在后台。这个事件对应于 Android 中的 onPause()；
@@ -70,14 +70,84 @@ suspending — 应用暂时被挂起。这个事件对应于 Android 中的 onSt
 
 ### 12. LinearLayout 对应Row 和 Column，
 -[RelativeLayout 对应组合使用 Column、Row 和 Stack Widget 实现 RelativeLayout 的效果。](https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter)
-ScrollView 对应 Flutter的ListView
-Flutter 中 ListView widget 既是一个 ScrollView，也是一个 Android 中的 ListView。
+-ScrollView 对应 Flutter的ListView
+-Flutter 中 ListView widget 既是一个 ScrollView，也是一个 Android 中的 ListView。
 
 ### 13.Flutter如何处理屏幕旋转？
-FlutterView 会处理配置的变化，前提条件是在 AndroidManifest.xml 文件中声明了：
+>FlutterView 会处理配置的变化，前提条件是在 AndroidManifest.xml 文件中声明了：
 
-```xml
+``` xml
 android:configChanges="orientation|screenSize"
+```
+
+### 14.Flutter中的点击事件和手势监听。
+在 Flutter 中有两种添加触摸监听器的方法：
+
+1.如果 Widget 支持事件监听，那么向它传入一个方法并在方法中处理事件。例如，RaisedButton 有一个 onPressed 参数：
+
+``` java
+@override
+Widget build(BuildContext context) {
+  return ElevatedButton(
+    onPressed: () {
+      print('click');
+    },
+    child: Text('Button'),
+  );
+}
+```
+2.如果 Widget 不支持事件监听，将 Widget 包装进一个 GestureDetector 中并向 onTap 参数传入一个方法。
+```` java
+class SampleApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            print('tap');
+          },
+          child: FlutterLogo(
+            size: 200.0,
+          ),
+        ),
+      ),
+    );
+  }
+}
+````
+>如何处理 Widget 上的其它手势？
+使用 GestureDetector 可以监听非常多的手势，例如：
+
+>Tap
+
+* onTapDown - 一个可能产生点击事件的指针触摸到屏幕的特定位置。
+* onTapUp - 一个产生了点击事件的指针停止触摸屏幕的特定位置。
+* onTap - 一个点击事件已经发生。
+* onTapCancel - 之前触发了 onTapDown 事件的指针不会产生点击事件。
+
+>Double tap
+
+* onDoubleTap - 用户在屏幕同一位置连续快速地点击两次。
+
+>Long press
+
+* onLongPress - 指针在屏幕的同一位置保持了一段较长时间的触摸状态。
+
+>Vertical drag
+
+* onVerticalDragStart - 指针已经触摸屏幕并可能开始垂直移动。
+* onVerticalDragUpdate - 触摸屏幕的指针在垂直方向移动了更多的距离。
+* onVerticalDragEnd - 之前和屏幕接触并垂直移动的指针不再继续和屏幕接触，并且在和屏幕停止接触的时候以一定的速度移动。
+
+>Horizontal drag
+
+*onHorizontalDragStart - 指针已经触摸屏幕并可能开始水平移动。
+*onHorizontalDragUpdate - 触摸屏幕的指针在水平方向移动了更多的距离。
+*onHorizontalDragEnd - 之前和屏幕接触并水平移动的指针不再继续和屏幕接触，并且在和屏幕停止接触的时候以一定的速度移动。
+
+
+
 
 
 
