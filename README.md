@@ -68,14 +68,17 @@ paused — 应用当前对用户不可见，无法响应用户输入，并运行
 resumed — 应用对用户可见并且可以响应用户的输入。这个事件对应于 Android 中的 onPostResume()；
 suspending — 应用暂时被挂起。这个事件对应于 Android 中的 onStop； iOS 上由于没有对应的事件，因此不会触发此事件。
 
-### 12. LinearLayout 对应Row 和 Column，RelativeLayout 对应组合使用 Column、Row 和 Stack Widget 实现 RelativeLayout 的效果。ScrollView 对应 Flutter的ListView
+### 12. LinearLayout 对应Row 和 Column，
+-[RelativeLayout 对应组合使用 Column、Row 和 Stack Widget 实现 RelativeLayout 的效果。](https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter)
+ScrollView 对应 Flutter的ListView
 Flutter 中 ListView widget 既是一个 ScrollView，也是一个 Android 中的 ListView。
 
 ### 13.Flutter如何处理屏幕旋转？
 FlutterView 会处理配置的变化，前提条件是在 AndroidManifest.xml 文件中声明了：
 
-````java
+```xml
 android:configChanges="orientation|screenSize"
-```
+
+
 
 
